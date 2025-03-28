@@ -68,6 +68,24 @@
         #result p {
             margin: 10px 0;
         }
+
+        .progress-container {
+            margin-top: 15px;
+            background-color: #e0e0e0;
+            border-radius: 20px;
+            overflow: hidden;
+            height: 25px;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background-color: #2ecc71;
+            text-align: center;
+            line-height: 25px;
+            color: white;
+            font-weight: bold;
+            transition: width 0.6s ease;
+        }
     </style>
 </head>
 <body>
@@ -119,6 +137,11 @@
                     <p><strong>Required Study Hours:</strong> ${response.requiredHours}</p>
                     <p><strong>Available Study Hours:</strong> ${response.availableHours}</p>
                     <p><strong>Readiness Score:</strong> ${response.readiness}%</p>
+                    <div class="progress-container">
+                        <div class="progress-bar" style="width: ${response.readiness}%;">
+                            ${response.readiness}%
+                        </div>
+                    </div>
                     <p><strong>Message:</strong> ${response.message}</p>
                 `);
             },

@@ -5,23 +5,84 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Study Planner</title>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f7fa;
+            padding: 40px;
+            color: #333;
+        }
+
+        h2 {
+            text-align: center;
+            color: #2c3e50;
+        }
+
+        form {
+            max-width: 500px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: 600;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background: #3498db;
+            border: none;
+            color: white;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #2980b9;
+        }
+
+        #result {
+            max-width: 500px;
+            margin: 30px auto 0 auto;
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        #result p {
+            margin: 10px 0;
+        }
+    </style>
 </head>
 <body>
 
-<h2>Personalized Study Planner</h2>
+<h2>📘 Personalized Study Planner</h2>
 
 <form id="studyForm">
     <label for="subject">Subject:</label>
     <input type="text" id="subject" required>
-    <br><br>
 
     <label for="examDate">Exam Date:</label>
     <input type="date" id="examDate" required>
-    <br><br>
 
     <label for="hours">Study Hours Per Day:</label>
     <input type="number" id="hours" min="1" required>
-    <br><br>
 
     <label for="difficulty">Topic Difficulty:</label>
     <select id="difficulty" required>
@@ -29,12 +90,10 @@
         <option value="Medium">Medium</option>
         <option value="High">High</option>
     </select>
-    <br><br>
 
     <button type="button" onclick="submitData()">Generate Study Plan</button>
 </form>
 
-<h3>Result:</h3>
 <div id="result"></div>
 
 <script>
@@ -54,6 +113,7 @@
             success: function(response) {
                 console.log("Response received:", response);
                 $("#result").html(`
+                    <h3>📊 Your Study Plan</h3>
                     <p><strong>Subject:</strong> ${response.subject}</p>
                     <p><strong>Days Left:</strong> ${response.daysLeft}</p>
                     <p><strong>Required Study Hours:</strong> ${response.requiredHours}</p>

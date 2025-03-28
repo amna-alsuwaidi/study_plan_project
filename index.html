@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Planner</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+
+<h2>Personalized Study Planner</h2>
+
+<form id="studyForm">
+    <label for="subject">Subject:</label>
+    <input type="text" id="subject" required>
+    <br><br>
+
+    <label for="examDate">Exam Date:</label>
+    <input type="date" id="examDate" required>
+    <br><br>
+
+    <label for="hours">Study Hours Per Day:</label>
+    <input type="number" id="hours" min="1" required>
+    <br><br>
+
+    <label for="difficulty">Topic Difficulty:</label>
+    <select id="difficulty" required>
+        <option value="Low">Low</option>
+        <option value="Medium">Medium</option>
+        <option value="High">High</option>
+    </select>
+    <br><br>
+
+    <button type="button" onclick="submitData()">Generate Study Plan</button>
+</form>
+
+<h3>Result:</h3>
+<div id="result"></div>
+
+<script>
+    function submitData() {
+        let requestData = {
+            subject: $("#subject").val(),
+            examDate: $("#examDate").val(),
+            studyHoursPerDay: parseFloat($("#hours").val()),
+            difficulty: $("#difficulty").val()
+        };
+
+        $.ajax({
+            url: "https://sprint5project-hpfwesh8g2gfdnfx.uaenorth-01.azurewebsites.net/",
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify(requestData),
+            success: function(response) {
+                console.log("Response received:", response);
+                $("#result").html(`
+                    <p><strong>Subject:</strong> ${response.subject}</p>
+                    <p><strong>Days Left:</strong> ${response.daysLeft}</p>
+                    <p><strong>Required Study Hours:</strong> ${response.requiredHours}</p>
+                    <p><strong>Available Study Hours:</strong> ${response.availableHours}</p>
+                    <p><strong>Readiness Score:</strong> ${response.readiness}%</p>
+                    <p><strong>Message:</strong> ${response.message}</p>
+                `);
+            },
+            error: function(xhr) {
+                console.error("AJAX Error:", xhr);
+                $("#result").html("<p style='color: red;'>Error: " + xhr.responseText + "</p>");
+            }
+        });
+    }
+</script>
+
+</body>
+</html>

@@ -51,9 +51,9 @@ app.post('/', function (req, res) {
 
     // Estimated required hours based on difficulty
     const difficultyHours = {
-        'Low': 20,
-        'Medium': 40,
-        'High': 60
+        'Low': 10,
+        'Medium': 20,
+        'High': 30
     };
     const requiredHours = difficultyHours[difficulty];
     const availableHours = daysLeft * studyHoursPerDay;
